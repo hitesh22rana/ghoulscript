@@ -13,6 +13,11 @@ class Parser:
         if self.token.type == "INT" or self.token.type == "FLT":
             return self.token
 
+        elif self.token.value == "(":
+            self.next()
+            expression = self.expression()
+            return expression
+
     def term(self) -> str | list:
         left_node = self.factor()
         self.next()

@@ -1,5 +1,5 @@
-from lexer.tokens.integer import Integer
-from lexer.tokens.float import Float
+from tokens.float import Float
+from tokens.integer import Integer
 
 
 class Interpreter:
