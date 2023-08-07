@@ -4,6 +4,11 @@ class Parser:
         self.idx = 0
         self.token = self.tokens[self.idx]
 
+    def next(self):
+        self.idx += 1
+        if self.idx < len(self.tokens):
+            self.token = self.tokens[self.idx]
+
     def factor(self) -> str:
         if self.token.type == "INT" or self.token.type == "FLT":
             return self.token
@@ -36,8 +41,3 @@ class Parser:
 
     def parse(self) -> str | list:
         return self.expression()
-
-    def move(self):
-        self.idx += 1
-        if self.idx < len(self.tokens):
-            self.token = self.tokens[self.idx]

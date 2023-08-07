@@ -32,7 +32,7 @@ class Lexer:
 
         return self.tokens
 
-    def move(self) -> None:
+    def next(self) -> None:
         self.idx += 1
         if self.idx < len(self.text):
             self.char = self.text[self.idx]
