@@ -1,6 +1,6 @@
-from lexer.token.integer import Integer
-from lexer.token.float import Float
-from lexer.token.operation import Operation
+from lexer.tokens.integer import Integer
+from lexer.tokens.float import Float
+from lexer.tokens.operation import Operation
 
 
 class Lexer:

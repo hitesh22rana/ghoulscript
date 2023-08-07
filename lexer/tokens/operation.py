@@ -1,4 +1,4 @@
-from lexer.token import Token
+from lexer.tokens import Token
 
 
 class Operation(Token):
