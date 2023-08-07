@@ -10,14 +10,14 @@ class Parser:
 
     def term(self) -> str | list:
         left_node = self.factor()
-        self.move()
+        self.next()
 
         while self.token.value == "*" or self.token.value == "/":
             operation = self.token
-            self.move()
+            self.next()
 
             right_node = self.factor()
-            self.move()
+            self.next()
             left_node = [left_node, operation, right_node]
 
         return left_node
@@ -27,7 +27,7 @@ class Parser:
 
         while self.token.value == "+" or self.token.value == "-":
             operation = self.token
-            self.move()
+            self.next()
 
             right_node = self.term()
             left_node = [left_node, operation, right_node]

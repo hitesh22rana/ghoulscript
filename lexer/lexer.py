@@ -22,10 +22,10 @@ class Lexer:
 
             elif self.char in Lexer.operations:
                 self.token = Operation(self.char)
-                self.move()
+                self.next()
 
             elif self.char in Lexer.stop_words:
-                self.move()
+                self.next()
                 continue
 
             self.tokens.append(self.token)
@@ -48,6 +48,6 @@ class Lexer:
                 isFloat = True
 
             number += self.char
-            self.move()
+            self.next()
 
         return Integer(number) if not isFloat else Float(number)
