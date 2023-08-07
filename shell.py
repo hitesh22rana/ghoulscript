@@ -1,4 +1,5 @@
 from lexer import Lexer
+from parser import Parser
 
 print("ghoulscript")
 while True:
@@ -6,4 +7,7 @@ while True:
     tokenizer = Lexer(text=text)
     tokens = tokenizer.tokenize()
 
-    print(tokens)
+    parser = Parser(tokens=tokens)
+    tree = parser.parse()
+
+    print(tree)
