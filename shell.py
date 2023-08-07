@@ -2,6 +2,9 @@ from parser import Parser
 
 from interpreter import Interpreter
 from lexer import Lexer
+from lib import Data
+
+data = Data()
 
 print("ghoulscript")
 while True:
@@ -9,11 +12,11 @@ while True:
     tokenizer = Lexer(text=text)
     tokens = tokenizer.tokenize()
 
-    print(tokens)
+    parser = Parser(tokens=tokens)
+    tree = parser.parse()
 
-    # parser = Parser(tokens=tokens)
-    # tree = parser.parse()
+    interpreter = Interpreter(tree=tree, data=data)
 
-    # output = Interpreter().interpret(tree=tree)
+    output = interpreter.interpret()
 
-    # print(output)
+    print(output)
