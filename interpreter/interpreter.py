@@ -32,6 +32,9 @@ class Interpreter:
         elif operator.value == "-":
             output = -operand
 
+        elif operator.value == "not":
+            output = 1 if not operand else 0
+
         return Integer(output) if operand_type == "INT" else Float(output)
 
     def compute_bin(self, left_node, operator, right_node):
@@ -63,6 +66,27 @@ class Interpreter:
         elif operator.value == "/":
             output = left_node_value / right_node_value
 
+        elif operator.value == ">":
+            output = 1 if left_node_value > right_node_value else 0
+
+        elif operator.value == "<":
+            output = 1 if left_node_value < right_node_value else 0
+
+        elif operator.value == ">=":
+            output = 1 if left_node_value >= right_node_value else 0
+
+        elif operator.value == "<=":
+            output = 1 if left_node_value <= right_node_value else 0
+
+        elif operator.value == "?=":
+            output = 1 if left_node_value == right_node_value else 0
+
+        elif operator.value == "and":
+            output = 1 if left_node_value and right_node_value else 0
+
+        elif operator.value == "or":
+            output = 1 if left_node_value or right_node_value else 0
+
         return (
             Integer(output)
             if left_node_type == "INT" and right_node_type == "INT"
@@ -75,6 +99,10 @@ class Interpreter:
 
         # Unary operation
         if isinstance(tree, list) and len(tree) == 2:
+            expression = tree[1]
+            if isinstance(expression, list):
+                expression = self.interpret(expression)
+
             return self.compute_unary(tree[0], tree[1])
 
         elif not isinstance(tree, list):

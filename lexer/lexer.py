@@ -1,3 +1,5 @@
+from tokens.boolean import Boolean
+from tokens.comparison import Comparison
 from tokens.declaration import Declaration
 from tokens.float import Float
 from tokens.integer import Integer
@@ -37,8 +39,10 @@ class Lexer:
     ]
     operations: list[str] = ["+", "-", "*", "/", "(", ")", "="]
     stop_words: list[str] = [" "]
-
+    boolean_operators: list[str] = ["and", "or", "not"]
     declarations: list[str] = ["ghoul"]
+    comparisons: list[str] = ["<", ">", "<=", ">=", "?="]
+    special_characters: list[str] = [">", "<", "=", "?"]
 
     def __init__(self, text: str) -> None:
         self.text: str = text
@@ -52,15 +56,6 @@ class Lexer:
             if self.char in Lexer.digits:
                 self.token = self.extract_number()
 
-            elif self.char in Lexer.letters:
-                word: str = self.extract_word()
-
-                if word in Lexer.declarations:
-                    self.token = Declaration(word)
-
-                else:
-                    self.token = Variable(word)
-
             elif self.char in Lexer.operations:
                 self.token = Operation(self.char)
                 self.next()
@@ -68,6 +63,28 @@ class Lexer:
             elif self.char in Lexer.stop_words:
                 self.next()
                 continue
+
+            elif self.char in Lexer.letters:
+                word: str = self.extract_word()
+
+                if word in Lexer.declarations:
+                    self.token = Declaration(word)
+
+                elif word in Lexer.boolean_operators:
+                    self.token = Boolean(word)
+
+                else:
+                    self.token = Variable(word)
+
+            elif self.char in Lexer.special_characters:
+                comparison_operator: str = ""
+                while self.char in Lexer.special_characters and self.idx < len(
+                    self.text
+                ):
+                    comparison_operator += self.char
+                    self.next()
+
+                self.token = Comparison(comparison_operator)
 
             self.tokens.append(self.token)
 
