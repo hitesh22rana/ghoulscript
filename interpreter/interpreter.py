@@ -81,16 +81,14 @@ class Interpreter:
             return tree
 
         # Binary operation
-        else:
-            left_node = tree[0]
+        left_node = tree[0]
+        if isinstance(left_node, list):
+            left_node = self.interpret(left_node)
 
-            if isinstance(left_node, list):
-                left_node = self.interpret(left_node)
+        right_node = tree[2]
+        if isinstance(right_node, list):
+            right_node = self.interpret(right_node)
 
-            right_node = tree[2]
-            if isinstance(right_node, list):
-                right_node = self.interpret(right_node)
+        operator = tree[1]
 
-            operator = tree[1]
-
-            return self.compute_bin(left_node, operator, right_node)
+        return self.compute_bin(left_node, operator, right_node)
